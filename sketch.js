@@ -1,6 +1,6 @@
 /**
  * 
- * @param {*} name String name of skill to be searched.
+ * @param {string} name Name of skill to be searched.
  * @returns The index of the skill. Undefined if the skill does not exist.
  */
  function indexFinder(name) {
@@ -22,6 +22,8 @@
 */
 function damageCalculator(skillName, myAtt, oppDef, toCrit, realmOrHeretic) {
   let index = indexFinder(skillName);
+
+  //reading data from the skill list
   let mySkill = skills[index];
   let m1 = mySkill.M1;
   let minM2 = mySkill.MinM2;
@@ -31,7 +33,6 @@ function damageCalculator(skillName, myAtt, oppDef, toCrit, realmOrHeretic) {
   let critRate = mySkill.CritRate;
 
   let avgM2 = (((minM2 + maxM2) / 2) * strikes) / castTurns;
-
   let critAmt;
   if (critRate === 0 || toCrit === false) {
       critAmt = 1;
@@ -42,7 +43,6 @@ function damageCalculator(skillName, myAtt, oppDef, toCrit, realmOrHeretic) {
           critAmt = 2.5;
       }
   }
-  
   let avgDamage = ((myAtt * m1) - (oppDef / 2)) * avgM2 * critAmt;
 
   // Calculate minimum and maximum damage only for skills with multiple strikes.
@@ -61,28 +61,33 @@ const form = document.getElementById('form');
 const log = document.getElementById('log');
 form.addEventListener('submit', logSubmit);
 
+/**
+ * 
+ * @param {*} event Triggered by event listener
+ */
 function logSubmit(event) {
-const inputSkillName = document.getElementById('skillName').value;
-const inputMyAtt = parseInt(document.getElementById('myAtt').value);
-const inputOppDef = parseInt(document.getElementById('oppDef').value);
-const inputToCrit = document.getElementById('crit').checked;
-const inputROrH = document.getElementById('rOrH').checked;
+  // All relevant inputs for damageCalculator function
+  const inputSkillName = document.getElementById('skillName').value;
+  const inputMyAtt = parseInt(document.getElementById('myAtt').value);
+  const inputOppDef = parseInt(document.getElementById('oppDef').value);
+  const inputToCrit = document.getElementById('crit').checked;
+  const inputROrH = document.getElementById('rOrH').checked;
 
-if (indexFinder(inputSkillName) === undefined) {
-  log.textContent = "Skill not found.";
-}
-if (Number.isInteger(inputMyAtt) === false || Number.isInteger(inputOppDef) === false || inputMyAtt < 0 || inputOppDef < 0) {
-  log.textContent = "Please enter a valid number.";
-}
+  if (indexFinder(inputSkillName) === undefined) {
+    log.textContent = "Skill not found.";
+  }
+  if (Number.isInteger(inputMyAtt) === false || Number.isInteger(inputOppDef) === false || inputMyAtt < 0 || inputOppDef < 0) {
+    log.textContent = "Please enter a valid number.";
+  }
 
-let answer = damageCalculator(inputSkillName, inputMyAtt, inputOppDef, inputToCrit, inputROrH);
-if (answer.length === 3) {
-  log.textContent = `The average damage is: ${answer[0]}. Depending on RNG, the minimum damage is ${answer[1]} and the maximum damage is ${answer[2]}.`;
-} else {
-  log.textContent = `The average damage is: ${answer}.`;
-}
+  let answer = damageCalculator(inputSkillName, inputMyAtt, inputOppDef, inputToCrit, inputROrH);
+  if (answer.length === 3) {
+    log.textContent = `The average damage is: ${answer[0]}. Depending on RNG, the minimum damage is ${answer[1]} and the maximum damage is ${answer[2]}.`;
+  } else {
+    log.textContent = `The average damage is: ${answer}.`;
+  }
 
-event.preventDefault();
+  event.preventDefault();
 }
 
 skills = [
@@ -2699,8 +2704,8 @@ skills = [
       "Element": "no",
       "Turns": 1,
       "M1": 1,
-      "MinM2": 0.75,
-      "MaxM2": 1.25,
+      "MinM2": 0.6375,
+      "MaxM2": 1.0625,
       "Strikes": 4,
       "CritRate": 0.2
     },
