@@ -45,6 +45,7 @@ function damageCalculator(skillName, myAtt, oppDef, toCrit, realmOrHeretic) {
   
   let avgDamage = ((myAtt * m1) - (oppDef / 2)) * avgM2 * critAmt;
 
+  // Calculate minimum and maximum damage only for skills with multiple strikes.
   if (strikes > 1) {
     let minimumM2 = (minM2 * strikes) / castTurns;
     let maximumM2 = (maxM2 * strikes) / castTurns;
