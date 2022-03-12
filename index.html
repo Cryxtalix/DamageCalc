@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Damage Calc</title>
+    <style> body {padding: 0; margin: 0;} canvas {vertical-align: top;} </style>
+  </head>
+  <body>
+    <h1>Orna Damage Calculator</h1>
+    <div class="Intro">
+      <p>This is a work in progress. Ability to compare skills and builds will be added in the future.</p>
+      <p>Use the tool to compare skills against each other, all else equal.</p>
+    </div>
+    <br>
+    <div class="skillSelector">
+      <form id="form">
+        <label for="skillName">Skill:</label>
+        <input type="text" id="skillName" name="skillname"><br><br>
+
+        <label for="myAtt">Attack stats:</label>
+        <input type="text" id="myAtt" name="myatt"><br><br>
+
+        <label for="oppDef">Defence stats:</label>
+        <input type="text" id="oppDef" name="oppdef"><br><br>
+
+        <label for="crit">Critical hit?</label>
+        <input type="checkbox" id="crit" name="crit"><br><br>
+
+        <label for="rOrH">Heretic or realmshifter?</label>
+        <input type="checkbox" id="rOrH" name="rOrH"><br><br>
+
+        <input type="submit" value="Calculate">
+      </form>
+      <p id="log"></p>
+    </div>
+    <script src="sketch.js" type="text/javascript"></script>
+  </body>
+</html>
