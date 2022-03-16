@@ -2710,6 +2710,17 @@ skills = [
       "CritRate": 0.2
     },
     {
+      "SkillName": "Requiem iii",
+      "Type": "atk",
+      "Element": "no",
+      "Turns": 1,
+      "M1": 2,
+      "MinM2": 2,
+      "MaxM2": 2,
+      "Strikes": 1,
+      "CritRate": 0.05
+    },
+    {
       "SkillName": "Riposte",
       "Type": "atk",
       "Element": "no",
