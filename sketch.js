@@ -43,18 +43,18 @@ function damageCalculator(skillName, myAtt, oppDef, toCrit, realmOrHeretic) {
           critAmt = 2.5;
       }
   }
+
   let avgDamage = ((myAtt * m1) - (oppDef / 2)) * avgM2 * critAmt;
+  let minimumM2 = (minM2 * strikes) / castTurns;
+  let maximumM2 = (maxM2 * strikes) / castTurns;
+  let maxDamage = ((myAtt * m1) - (oppDef / 2)) * maximumM2 * critAmt;
+  let minDamage = ((myAtt * m1) - (oppDef / 2)) * minimumM2 * critAmt;
 
-  // Calculate minimum and maximum damage only for skills with multiple strikes.
-  if (strikes > 1) {
-    let minimumM2 = (minM2 * strikes) / castTurns;
-    let maximumM2 = (maxM2 * strikes) / castTurns;
-    let maxDamage = ((myAtt * m1) - (oppDef / 2)) * maximumM2 * critAmt;
-    let minDamage = ((myAtt * m1) - (oppDef / 2)) * minimumM2 * critAmt;
-    return [Math.floor(avgDamage), Math.floor(minDamage), Math.floor(maxDamage)];
-  }
+  if (avgDamage < 0) {avgDamage = 0};
+  if (minDamage < 0) (minDamage = 0);
+  if (maxDamage < 0) (maxDamage = 0);
 
-  return Math.floor(avgDamage);
+  return [Math.floor(avgDamage), Math.floor(minDamage), Math.floor(maxDamage)];
 }
 
 const form = document.getElementById('form');
@@ -74,17 +74,12 @@ function logSubmit(event) {
   const inputROrH = document.getElementById('rOrH').checked;
 
   if (indexFinder(inputSkillName) === undefined) {
-    log.textContent = "Skill not found.";
+    log.textContent = "Invalid input";
   }
-  if (Number.isInteger(inputMyAtt) === false || Number.isInteger(inputOppDef) === false || inputMyAtt < 0 || inputOppDef < 0) {
-    log.textContent = "Please enter a valid number.";
-  }
-
-  let answer = damageCalculator(inputSkillName, inputMyAtt, inputOppDef, inputToCrit, inputROrH);
-  if (answer.length === 3) {
-    log.textContent = `The average damage is: ${answer[0]}. Depending on RNG, the minimum damage is ${answer[1]} and the maximum damage is ${answer[2]}.`;
-  } else {
-    log.textContent = `The average damage is: ${answer}.`;
+  
+  else {
+    let answer = damageCalculator(inputSkillName, inputMyAtt, inputOppDef, inputToCrit, inputROrH);
+    log.textContent = `AVERAGE: ${answer[0]}. MIN: ${answer[1]}. MAX: ${answer[2]}.`;
   }
 
   event.preventDefault();
