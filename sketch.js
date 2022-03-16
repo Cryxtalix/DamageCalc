@@ -18,7 +18,7 @@
 * @param {number} oppDef 
 * @param {boolean} toCrit True for crit, false for no crit
 * @param {boolean} realmOrHeretic True for 2.5x crit damage, false for 2x crit damage
-* @returns For single strike skills, the average damage. For multi strikes skill, return an array with the average, minimum and maximum damage.
+* @returns Return array with [avg, min, max]
 */
 function damageCalculator(skillName, myAtt, oppDef, toCrit, realmOrHeretic) {
   let index = indexFinder(skillName);
@@ -75,9 +75,7 @@ function logSubmit(event) {
 
   if (indexFinder(inputSkillName) === undefined) {
     log.textContent = "Invalid input";
-  }
-  
-  else {
+  } else {
     let answer = damageCalculator(inputSkillName, inputMyAtt, inputOppDef, inputToCrit, inputROrH);
     log.textContent = `AVERAGE: ${answer[0]}. MIN: ${answer[1]}. MAX: ${answer[2]}.`;
   }
