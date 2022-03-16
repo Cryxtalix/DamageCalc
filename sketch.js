@@ -2714,7 +2714,7 @@ skills = [
       "Type": "atk",
       "Element": "no",
       "Turns": 1,
-      "M1": 2,
+      "M1": 1.4,
       "MinM2": 2,
       "MaxM2": 2,
       "Strikes": 1,
